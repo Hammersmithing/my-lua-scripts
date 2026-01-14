@@ -247,6 +247,43 @@ Best for **faders and continuous controls** with bidirectional feedback.
 | Pan | Pattern Config | Continuous + bidirectional |
 | FX parameter | Pattern Config or FX Learn | Continuous + bidirectional |
 
+### OSC Button Tracking Spreadsheet
+
+**Spreadsheet**: Json OSC Tracker
+**Tab**: OSC Buttons
+**Columns**: button_id, button_label, page, osc_address, linked_script, date_added, notes
+
+#### Add a button to the tracker:
+```bash
+curl -L -X POST "https://script.google.com/macros/s/AKfycbzpjmCHUV6Q4G8UNtwsqre68M6ezG82rQOWuHbqexN3YAPDe4pybCQvyZYel9pn0lCpfg/exec" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tab": "OSC Buttons",
+    "button_id": "BUTTON_ID",
+    "button_label": "Button Label",
+    "page": "Main",
+    "osc_address": "/BUTTON_ID",
+    "linked_script": "Action name or script",
+    "date_added": "YYYY-MM-DD",
+    "notes": ""
+  }'
+```
+
+#### Delete a button from the tracker:
+```bash
+curl -L -X POST "https://script.google.com/macros/s/AKfycbzpjmCHUV6Q4G8UNtwsqre68M6ezG82rQOWuHbqexN3YAPDe4pybCQvyZYel9pn0lCpfg/exec" \
+  -H "Content-Type: application/json" \
+  -d '{"action": "delete", "tab": "OSC Buttons", "button_id": "BUTTON_ID"}'
+```
+
+### Workflow: Adding a New OSC Button
+
+1. **Design the button** in Open Stage Control editor (or Claude edits JSON directly)
+2. **Save the layout** (auto-saves to JSON file)
+3. **Connect to REAPER** via Action List binding (for buttons) or Pattern Config (for faders)
+4. **Add to spreadsheet tracker** using curl command above
+5. **Test on iPad**
+
 ---
 
 ## Session Notes
