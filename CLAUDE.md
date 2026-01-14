@@ -84,9 +84,9 @@ User tests in REAPER and reports back with ONE of these three outcomes:
 1. Claude suggests which of the 47 category folders the script should live in permanently
 2. User confirms OR discusses alternative folder
 3. Once agreed, Claude:
-   - Moves script from `07. Development` to the permanent folder
-   - Removes script from development folder
-   - Opens REAPER Action List with the script loaded so user can assign a hotkey
+   - Moves script from `07. Development` to the permanent folder (with ALDENHammersmith_ prefix)
+   - Adds script to REAPER Action List (runs automatically, copies name to clipboard)
+   - Adds script to Google Spreadsheet tracker
 4. Script is done - ready to design a new script
 
 ### Moving to Permanent Folder
@@ -107,6 +107,26 @@ echo "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hamm
 open -a REAPER
 ```
 The script will run automatically, the core script name (e.g. "test-4") is copied to clipboard, then the Action List opens. User can paste (Cmd+V) to search and assign a hotkey.
+
+### Adding to Google Spreadsheet Tracker
+After adding to Action List, Claude adds the script to the tracking spreadsheet:
+```bash
+curl -L -X POST "https://script.google.com/macros/s/AKfycbyeRxyVWWFoJ9C_yrtQhQNBoFTVRj8Xh6EVAqi3YulnRu68C9gs21omItGLywYqkcuihw/exec" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tab": "XX. Category",
+    "script_name": "ALDENHammersmith_SCRIPT_NAME.lua",
+    "date_created": "YYYY-MM-DD",
+    "use": "Brief description of what the script does",
+    "file_path": "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua",
+    "file_type": "lua",
+    "notes": "",
+    "osc_page": "",
+    "button_id": "",
+    "button_name": ""
+  }'
+```
+The tab name matches the permanent folder name (e.g. "08. Diagnostics & Debug").
 
 ### TODO Comment Format
 When a script needs more work (Option B), add this at the top:
