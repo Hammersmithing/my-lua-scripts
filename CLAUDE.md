@@ -282,6 +282,14 @@ Best for **faders and continuous controls** with bidirectional feedback.
 **Tab**: OSC Buttons
 **Columns**: button_id, button_label, page, osc_address, linked_script, date_added, notes
 
+#### linked_script Column Format
+This column shows what REAPER action the button triggers. Also serves as bound indicator (filled = bound, empty = needs binding).
+
+| Type | Format | Example |
+|------|--------|---------|
+| Built-in action | Category: Action name (action_id) | Transport: Play/stop (40044) |
+| Custom script | Custom: Description | Custom: Move cursor forward 1 measure |
+
 #### Add a button to the tracker:
 ```bash
 curl -L -X POST "https://script.google.com/macros/s/AKfycbzpjmCHUV6Q4G8UNtwsqre68M6ezG82rQOWuHbqexN3YAPDe4pybCQvyZYel9pn0lCpfg/exec" \
@@ -305,13 +313,46 @@ curl -L -X POST "https://script.google.com/macros/s/AKfycbzpjmCHUV6Q4G8UNtwsqre6
   -d '{"action": "delete", "tab": "OSC Buttons", "button_id": "BUTTON_ID"}'
 ```
 
+### REAPER OSC Action Bindings File
+
+When buttons are bound via Action List, REAPER stores the mappings in:
+```
+/Users/jahammersmith/Library/Application Support/REAPER/OSC/reaper-osc-actions.ini
+```
+
+Format: `"/OSC_ADDRESS" [flags] [flags] [action_id]`
+
+This file can be edited directly when renaming button IDs (update the OSC addresses to match new IDs).
+
+### JSON Layout File (Git Tracked)
+
+The Open Stage Control layout is stored in git for version control:
+- **Working copy**: `/Users/jahammersmith/Library/Application Support/REAPER/Alden Hammersmith open-stage-control/IPAD Surface 5Pages.json`
+- **Git repo copy**: `/Users/jahammersmith/projects/my-lua-scripts/IPAD Surface 5Pages.json`
+
+After making changes to the layout, sync to git:
+```bash
+cp "/Users/jahammersmith/Library/Application Support/REAPER/Alden Hammersmith open-stage-control/IPAD Surface 5Pages.json" "/Users/jahammersmith/projects/my-lua-scripts/"
+git add "IPAD Surface 5Pages.json" && git commit -m "Update OSC layout" && git push
+```
+
 ### Workflow: Adding a New OSC Button
 
 1. **Design the button** in Open Stage Control editor (or Claude edits JSON directly)
 2. **Save the layout** (auto-saves to JSON file)
 3. **Connect to REAPER** via Action List binding (for buttons) or Pattern Config (for faders)
-4. **Add to spreadsheet tracker** using curl command above
-5. **Test on iPad**
+4. **Add to spreadsheet tracker** using curl command above (include linked_script if bound)
+5. **Sync JSON to git repo**
+6. **Test on iPad**
+
+### Workflow: Renaming Button IDs
+
+1. **Update JSON layout file** (rename button IDs)
+2. **Update reaper-osc-actions.ini** (change OSC addresses to match new IDs)
+3. **Update spreadsheet** (delete old entries, add new ones)
+4. **Restart REAPER** to load new bindings
+5. **Reload layout in Open Stage Control**
+6. **Sync JSON to git repo**
 
 ---
 
