@@ -66,12 +66,45 @@ open -a REAPER
 Note: This runs the script directly but does not add it to REAPER's Action List.
 
 ### After Testing
-User tests and reports back:
-- **If working**: Claude recommends a category folder (01-47), user confirms, Claude moves script to permanent folder
-- **If not working**: Claude adds a TODO comment at top of script describing what needs more development, then commits and pushes to GitHub
+User tests in REAPER and reports back with ONE of these three outcomes:
+
+**Option A: Needs more work NOW**
+- User describes what needs to change
+- Claude makes the edits, commits, pushes, and deploys again
+- Repeat testing cycle
+
+**Option B: Needs more work LATER (stop for now)**
+- User says they want to pause development
+- Claude adds TODO comment at top of script describing what needs work
+- Claude commits and pushes to GitHub
+- Claude updates the script in the development folder
+- Session ends for this script
+
+**Option C: Script is COMPLETE**
+1. Claude suggests which of the 47 category folders the script should live in permanently
+2. User confirms OR discusses alternative folder
+3. Once agreed, Claude:
+   - Moves script from `07. Development` to the permanent folder
+   - Removes script from development folder
+   - Opens REAPER Action List with the script loaded so user can assign a hotkey
+4. Script is done - ready to design a new script
+
+### Moving to Permanent Folder
+```bash
+# Move script to permanent folder (replace XX. Category with actual folder name)
+mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/"
+```
+
+### Adding to REAPER Action List
+After moving to permanent folder, open REAPER and load the script into the Action List:
+```bash
+open -a REAPER
+# Then user goes to: Actions > Show action list > Load ReaScript > Navigate to the script
+```
+Note: User manually adds hotkey from the Action List.
 
 ### TODO Comment Format
-When a script needs more work, add this at the top:
+When a script needs more work (Option B), add this at the top:
 ```lua
 --[[
   TODO:
