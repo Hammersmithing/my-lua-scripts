@@ -29,7 +29,7 @@ Replace `07. Development` in the base path with any of these:
 05. Composing           21. Mixing                37. Text Items and Item Notes
 06. Cursor              22. Navigation            38. Theme
 07. Development         23. Project               39. Tracks
-08. Diagnostics/Debug   24. Razor Edit            40. Track Properties
+08. Diagnostics & Debug   24. Razor Edit            40. Track Properties
 09. Envelopes           25. Regions               41. Transport
 10. Functions           26. Rendering             42. UI (RealmGui)
 11. FX                  27. Routing               43. Various
