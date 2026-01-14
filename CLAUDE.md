@@ -49,12 +49,21 @@ Replace `07. Development` in the base path with any of these:
    - **If working**: Claude recommends a category folder (01-47), user confirms, Claude moves script to permanent folder
    - **If not working**: Claude adds a TODO comment at top of script describing what needs more development, then commits and pushes to GitHub
 
+### Starting a Session
+Claude should ask: "What Lua script do you want to work on?"
+- User can request an existing script in development
+- User can describe an idea for a new script
+
 ### Deploy & Test Command
 When ready to test a script, Claude should:
 1. Copy the script to the REAPER development folder
-2. Run this command to execute it in REAPER:
+2. Run the script in REAPER
+3. Bring REAPER to the front for testing
+
 ```bash
+cp "/Users/jahammersmith/projects/my-lua-scripts/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/"
 /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua"
+open -a REAPER
 ```
 
 Note: This runs the script directly but does not add it to REAPER's Action List.
