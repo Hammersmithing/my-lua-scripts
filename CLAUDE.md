@@ -95,13 +95,17 @@ User tests in REAPER and reports back with ONE of these three outcomes:
 mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/"
 ```
 
-### Adding to REAPER Action List
-After moving to permanent folder, open REAPER and load the script into the Action List:
+### Adding to REAPER Action List (Automated)
+After moving to permanent folder, Claude runs these commands to auto-register the script:
 ```bash
+# Write the script path to a temp file
+echo "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/SCRIPT_NAME.lua" > /tmp/reaper_script_to_add.txt
+
+# Run the helper script that adds it to the Action List and opens the Action List window
+/Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/_add-to-action-list.lua"
 open -a REAPER
-# Then user goes to: Actions > Show action list > Load ReaScript > Navigate to the script
 ```
-Note: User manually adds hotkey from the Action List.
+The Action List will open automatically. User can then search for the script and assign a hotkey.
 
 ### TODO Comment Format
 When a script needs more work (Option B), add this at the top:
