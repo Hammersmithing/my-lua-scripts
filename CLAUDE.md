@@ -156,6 +156,12 @@ curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvx
 ```
 The tab name matches the permanent folder name (e.g. "08. Diagnostics & Debug").
 
+### Rename Script in Git Repo
+After completing all steps, rename the script in git to match the final name:
+```bash
+git mv SCRIPT_NAME.lua ALDENHammersmith_SCRIPT_NAME.lua && git commit -m "Rename SCRIPT_NAME to final name with prefix" && git push
+```
+
 ### TODO Comment Format
 When a script needs more work (Option B), add this at the top:
 ```lua
