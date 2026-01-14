@@ -103,8 +103,10 @@ User tests in REAPER and reports back with ONE of these three outcomes:
 2. User confirms OR discusses alternative folder
 3. Once agreed, Claude:
    - Moves script from `07. Development` to the permanent folder (with ALDENHammersmith_ prefix)
+   - Deletes script from "07. Development" spreadsheet tab
    - Adds script to REAPER Action List (runs automatically, copies name to clipboard)
-   - Adds script to Google Spreadsheet tracker
+   - Adds script to permanent folder spreadsheet tab
+   - Renames script in git repo to match final name (ALDENHammersmith_ prefix)
 4. Script is done - ready to design a new script
 
 ### Moving to Permanent Folder
