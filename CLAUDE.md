@@ -247,6 +247,35 @@ Best for **faders and continuous controls** with bidirectional feedback.
 | Pan | Pattern Config | Continuous + bidirectional |
 | FX parameter | Pattern Config or FX Learn | Continuous + bidirectional |
 
+### Button ID Naming Scheme
+
+**Format:** `P#_Category_Function`
+
+**Examples:**
+- `P1_Transport_PlayStop`
+- `P1_Grid_QuarterNote`
+- `P2_MIDI_Quantize`
+
+**Pages:**
+- P1 = Main
+- P2 = Page 2
+- P3 = Page 3
+- P4 = Page 4
+- P5 = Page 5
+
+**Categories:**
+| Category | Use for |
+|----------|---------|
+| Transport | Play, stop, forward, back, metronome |
+| Grid | Grid size settings (bar, 1/2, 1/4, 1/8, etc.) |
+| Track | Track operations (new, duplicate, delete, arm/unarm) |
+| Control | General controls (snap, scroll, folder, stack, group, VCA) |
+| MIDI | MIDI operations (quantize, select) |
+| View | View toggles (video, unused tracks) |
+| Color | Color operations |
+| FX | Effects controls |
+| Nav | Page navigation tabs |
+
 ### OSC Button Tracking Spreadsheet
 
 **Spreadsheet**: Json OSC Tracker
