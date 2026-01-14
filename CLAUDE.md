@@ -58,7 +58,7 @@ git add SCRIPT_NAME.lua && git commit -m "Add/Update SCRIPT_NAME" && git push
 
 **Step 3: Add to Google Spreadsheet (Development tab)**
 ```bash
-curl -L -X POST "https://script.google.com/macros/s/AKfycbyeRxyVWWFoJ9C_yrtQhQNBoFTVRj8Xh6EVAqi3YulnRu68C9gs21omItGLywYqkcuihw/exec" \
+curl -L -X POST "https://script.google.com/macros/s/AKfycbztjwNN_f60YEE9v-JL_pOaW_MZ9wbT_TPRWztgH5caxtSRjeVP9aTWwhnfQiN96_1KSA/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "tab": "07. Development",
@@ -114,6 +114,14 @@ When moving to a permanent folder, rename the script with the prefix `ALDENHamme
 mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua"
 ```
 
+### Delete from Development Tab in Spreadsheet
+When script leaves development, remove it from the "07. Development" tab:
+```bash
+curl -L -X POST "https://script.google.com/macros/s/AKfycbztjwNN_f60YEE9v-JL_pOaW_MZ9wbT_TPRWztgH5caxtSRjeVP9aTWwhnfQiN96_1KSA/exec" \
+  -H "Content-Type: application/json" \
+  -d '{"action": "delete", "tab": "07. Development", "script_name": "SCRIPT_NAME.lua"}'
+```
+
 ### Adding to REAPER Action List (Automated)
 After moving to permanent folder, Claude runs these commands to auto-register the script:
 ```bash
@@ -129,7 +137,7 @@ The script will run automatically, the core script name (e.g. "test-4") is copie
 ### Adding to Google Spreadsheet Tracker
 After adding to Action List, Claude adds the script to the tracking spreadsheet:
 ```bash
-curl -L -X POST "https://script.google.com/macros/s/AKfycbyeRxyVWWFoJ9C_yrtQhQNBoFTVRj8Xh6EVAqi3YulnRu68C9gs21omItGLywYqkcuihw/exec" \
+curl -L -X POST "https://script.google.com/macros/s/AKfycbztjwNN_f60YEE9v-JL_pOaW_MZ9wbT_TPRWztgH5caxtSRjeVP9aTWwhnfQiN96_1KSA/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "tab": "XX. Category",
