@@ -174,6 +174,81 @@ When a script needs more work (Option B), add this at the top:
 
 ---
 
+## OSC Control Surface (iPad via Open Stage Control)
+
+### Overview
+iPad control surface using **Open Stage Control** (browser-based, OSC protocol).
+- iPad connects via Safari to Open Stage Control running on Mac
+- Open Stage Control communicates with REAPER via OSC
+- Bidirectional: faders in REAPER move faders on iPad and vice versa
+
+### File Locations
+- **Open Stage Control app**: `/Applications/open-stage-control.app`
+- **Layout files**: `/Users/jahammersmith/Library/Application Support/REAPER/Alden Hammersmith open-stage-control/`
+- **Current layout**: `IPAD Surface 5Pages.json`
+- **REAPER OSC configs**: `/Users/jahammersmith/Library/Application Support/REAPER/OSC/`
+
+### Launching Open Stage Control
+1. Open the app: `open -a "open-stage-control"`
+2. Configure launcher settings:
+   - **send**: `127.0.0.1:8000`
+   - **osc-port**: `9000`
+   - **port**: `8080`
+   - **load**: `/Users/jahammersmith/Library/Application Support/REAPER/Alden Hammersmith open-stage-control/IPAD Surface 5Pages.json`
+3. Click Play button to start server
+4. On iPad, open Safari and go to: `http://192.168.12.193:8080`
+
+### REAPER OSC Settings
+Location: Preferences → Control/OSC/Web → OSC: OpenStageControl
+- **Mode**: Configure device IP + local port
+- **Device IP**: `127.0.0.1`
+- **Device port**: `9000`
+- **Local listen port**: `8000`
+- **Pattern config**: Default
+- **Allow binding messages to REAPER actions and FX learn**: ✓ Checked
+
+### Two Methods for Connecting Controls
+
+#### Method 1: Action List Binding
+Best for **buttons that trigger discrete actions**.
+- Play/Stop/Record buttons
+- Run a Lua script
+- Toggle features on/off
+- Any REAPER action
+
+**How to set up:**
+1. In REAPER: Actions → Show Action List
+2. Find and select the action
+3. Click "Add..." button
+4. Choose the OSC binding option
+5. Press the button on your iPad surface
+6. The OSC address is now bound to that action
+
+#### Method 2: Pattern Config (.ReaperOSC file)
+Best for **faders and continuous controls** with bidirectional feedback.
+- Track volume faders
+- Pan knobs
+- Send levels
+- FX parameters
+
+**How it works:**
+- The `.ReaperOSC` file maps OSC addresses to REAPER functions
+- Provides automatic bidirectional sync (move fader in REAPER → moves on iPad)
+- Edit the file at: `/Users/jahammersmith/Library/Application Support/REAPER/OSC/Default.ReaperOSC`
+
+### Quick Reference: What Method to Use
+
+| Control Type | Method | Why |
+|--------------|--------|-----|
+| Play/Stop/Record | Action List | Discrete trigger |
+| Run script | Action List | Discrete trigger |
+| Toggle mute/solo | Action List | Discrete trigger |
+| Track volume | Pattern Config | Continuous + bidirectional |
+| Pan | Pattern Config | Continuous + bidirectional |
+| FX parameter | Pattern Config or FX Learn | Continuous + bidirectional |
+
+---
+
 ## Session Notes
 *Add notes here as we work together. This section will persist between conversations.*
 
