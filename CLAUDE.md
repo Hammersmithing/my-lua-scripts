@@ -58,7 +58,7 @@ git add SCRIPT_NAME.lua && git commit -m "Add/Update SCRIPT_NAME" && git push
 
 **Step 3: Add to Google Spreadsheet (Development tab)**
 ```bash
-curl -L -X POST "https://script.google.com/macros/s/AKfycbztjwNN_f60YEE9v-JL_pOaW_MZ9wbT_TPRWztgH5caxtSRjeVP9aTWwhnfQiN96_1KSA/exec" \
+curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "tab": "07. Development",
@@ -117,7 +117,7 @@ mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammer
 ### Delete from Development Tab in Spreadsheet
 When script leaves development, remove it from the "07. Development" tab:
 ```bash
-curl -L -X POST "https://script.google.com/macros/s/AKfycbztjwNN_f60YEE9v-JL_pOaW_MZ9wbT_TPRWztgH5caxtSRjeVP9aTWwhnfQiN96_1KSA/exec" \
+curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" \
   -H "Content-Type: application/json" \
   -d '{"action": "delete", "tab": "07. Development", "script_name": "SCRIPT_NAME.lua"}'
 ```
@@ -137,7 +137,7 @@ The script will run automatically, the core script name (e.g. "test-4") is copie
 ### Adding to Google Spreadsheet Tracker
 After adding to Action List, Claude adds the script to the tracking spreadsheet:
 ```bash
-curl -L -X POST "https://script.google.com/macros/s/AKfycbztjwNN_f60YEE9v-JL_pOaW_MZ9wbT_TPRWztgH5caxtSRjeVP9aTWwhnfQiN96_1KSA/exec" \
+curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" \
   -H "Content-Type: application/json" \
   -d '{
     "tab": "XX. Category",
