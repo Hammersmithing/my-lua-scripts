@@ -106,7 +106,7 @@ echo "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hamm
 /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/_add-to-action-list.lua"
 open -a REAPER
 ```
-The script will run automatically, then the Action List opens. User can search for the script name to assign a hotkey.
+The script will run automatically, the script name is copied to clipboard, then the Action List opens. User can paste (Cmd+V) to search and assign a hotkey.
 
 ### TODO Comment Format
 When a script needs more work (Option B), add this at the top:
