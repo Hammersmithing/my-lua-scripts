@@ -40,26 +40,23 @@ Replace `07. Development` in the base path with any of these:
 16. Media Explorer      32. Subprojects
 ```
 
-### Process
-1. Write/edit Lua scripts in this git repo
-2. Commit and push to GitHub
-3. Copy script to the REAPER development folder (`07. Development`)
-4. Run the script in REAPER for testing
-5. User tests and reports back:
-   - **If working**: Claude recommends a category folder (01-47), user confirms, Claude moves script to permanent folder
-   - **If not working**: Claude adds a TODO comment at top of script describing what needs more development, then commits and pushes to GitHub
-
 ### Starting a Session
 Claude should ask: "What Lua script do you want to work on?"
 - User can request an existing script in development
 - User can describe an idea for a new script
 
-### Deploy & Test Command
-When ready to test a script, Claude should:
-1. Copy the script to the REAPER development folder
-2. Run the script in REAPER
-3. Bring REAPER to the front for testing
+### Creating/Editing a Script (Claude does all steps automatically)
+When the user requests a new script or edits an existing one, Claude should execute ALL of these steps in sequence:
 
+**Step 1: Write the script**
+Create or edit the `.lua` file in the git repo.
+
+**Step 2: Commit and push to GitHub**
+```bash
+git add SCRIPT_NAME.lua && git commit -m "Add/Update SCRIPT_NAME" && git push
+```
+
+**Step 3: Deploy and test in REAPER**
 ```bash
 cp "/Users/jahammersmith/projects/my-lua-scripts/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/"
 /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua"
@@ -67,6 +64,11 @@ open -a REAPER
 ```
 
 Note: This runs the script directly but does not add it to REAPER's Action List.
+
+### After Testing
+User tests and reports back:
+- **If working**: Claude recommends a category folder (01-47), user confirms, Claude moves script to permanent folder
+- **If not working**: Claude adds a TODO comment at top of script describing what needs more development, then commits and pushes to GitHub
 
 ### TODO Comment Format
 When a script needs more work, add this at the top:
