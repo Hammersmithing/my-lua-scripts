@@ -56,7 +56,25 @@ Create or edit the `.lua` file in the git repo.
 git add SCRIPT_NAME.lua && git commit -m "Add/Update SCRIPT_NAME" && git push
 ```
 
-**Step 3: Deploy and test in REAPER**
+**Step 3: Add to Google Spreadsheet (Development tab)**
+```bash
+curl -L -X POST "https://script.google.com/macros/s/AKfycbyeRxyVWWFoJ9C_yrtQhQNBoFTVRj8Xh6EVAqi3YulnRu68C9gs21omItGLywYqkcuihw/exec" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tab": "07. Development",
+    "script_name": "SCRIPT_NAME.lua",
+    "date_created": "YYYY-MM-DD",
+    "use": "Brief description of what the script does",
+    "file_path": "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua",
+    "file_type": "lua",
+    "notes": "",
+    "osc_page": "",
+    "button_id": "",
+    "button_name": ""
+  }'
+```
+
+**Step 4: Deploy and test in REAPER**
 ```bash
 cp "/Users/jahammersmith/projects/my-lua-scripts/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/"
 /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua"
