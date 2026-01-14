@@ -90,16 +90,17 @@ User tests in REAPER and reports back with ONE of these three outcomes:
 4. Script is done - ready to design a new script
 
 ### Moving to Permanent Folder
+When moving to a permanent folder, rename the script with the prefix `ALDENHammersmith_`:
 ```bash
-# Move script to permanent folder (replace XX. Category with actual folder name)
-mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/"
+# Move and rename script to permanent folder (replace XX. Category with actual folder name)
+mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua"
 ```
 
 ### Adding to REAPER Action List (Automated)
 After moving to permanent folder, Claude runs these commands to auto-register the script:
 ```bash
-# Write the script path to a temp file
-echo "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/SCRIPT_NAME.lua" > /tmp/reaper_script_to_add.txt
+# Write the script path (with ALDENHammersmith_ prefix) to a temp file
+echo "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua" > /tmp/reaper_script_to_add.txt
 
 # Run the helper script that adds it to the Action List and opens the Action List window
 /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/_add-to-action-list.lua"
