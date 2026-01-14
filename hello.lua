@@ -1,1 +1,1 @@
-print("Hello World")
+reaper.ShowConsoleMsg("Hello World\n")
