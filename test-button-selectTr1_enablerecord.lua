@@ -8,6 +8,9 @@ gfx.init("Select & Arm Track 1", 200, 60)
 local btn_x, btn_y = 20, 15
 local btn_w, btn_h = 160, 30
 
+-- Track mouse state for debouncing
+local mouse_was_down = false
+
 -- Function to select and arm track 1
 local function selectAndArmTrack1()
   local track = reaper.GetTrack(0, 0)
@@ -28,8 +31,13 @@ end
 
 -- Main loop
 local function main()
+  -- Clear background
+  gfx.set(0.2, 0.2, 0.2)
+  gfx.rect(0, 0, gfx.w, gfx.h, 1)
+
   -- Draw button
   local hover = isMouseOverButton()
+  local mouse_down = (gfx.mouse_cap & 1) == 1
 
   -- Button color (lighter when hovering)
   if hover then
@@ -50,14 +58,15 @@ local function main()
   gfx.y = btn_y + 8
   gfx.drawstr("Arm Track 1")
 
-  -- Handle click
-  if gfx.mouse_cap == 1 and hover then
+  -- Handle click (trigger on mouse down, only once)
+  if mouse_down and hover and not mouse_was_down then
     selectAndArmTrack1()
-    -- Wait for mouse release to avoid repeated triggers
-    while gfx.mouse_cap == 1 do
-      gfx.update()
-    end
   end
+
+  -- Update mouse state for next frame
+  mouse_was_down = mouse_down
+
+  gfx.update()
 
   -- Keep window open
   local char = gfx.getchar()
@@ -66,8 +75,6 @@ local function main()
   else
     gfx.quit()
   end
-
-  gfx.update()
 end
 
 main()
