@@ -123,9 +123,10 @@ User tests in REAPER and reports back with ONE of these three outcomes:
    open -a REAPER
    ```
 
-   **Step C5: Rename in git repo**
+   **Step C5: Add finalized script to git repo**
    ```bash
-   git mv SCRIPT_NAME.lua ALDENHammersmith_SCRIPT_NAME.lua && git commit -m "Rename SCRIPT_NAME to final name with prefix" && git push
+   cp "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua" /Users/jahammersmith/projects/my-lua-scripts/
+   cd /Users/jahammersmith/projects/my-lua-scripts && git add "ALDENHammersmith_SCRIPT_NAME.lua" && git commit -m "Add SCRIPT_NAME (finalized)" && git push
    ```
 
 4. Claude reports completion: folder location, script name, and confirms it's in the Action List.
