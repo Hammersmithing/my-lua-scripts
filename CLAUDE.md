@@ -193,6 +193,33 @@ When a script needs more work (Option B), add this at the top:
 ]]--
 ```
 
+### Deleting a Script
+When user requests to delete a script, Claude executes ALL steps automatically:
+
+**Step 1: Find the local file path**
+Search for the script in the REAPER scripts folder:
+```bash
+find "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts" -name "*SCRIPT_NAME*"
+```
+
+**Step 2: Delete from git repo**
+```bash
+git rm ALDENHammersmith_SCRIPT_NAME.lua && git commit -m "Delete SCRIPT_NAME" && git push
+```
+
+**Step 3: Delete from spreadsheet**
+Use the tab name that matches the folder where the script was located:
+```bash
+curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" -H "Content-Type: application/json" -d '{"action": "delete", "tab": "XX. Category", "script_name": "ALDENHammersmith_SCRIPT_NAME.lua"}'
+```
+
+**Step 4: Delete from local REAPER folder**
+```bash
+rm "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua"
+```
+
+**Note:** The local file path determines which spreadsheet tab to delete from (the folder name = tab name).
+
 ---
 
 ## OSC Control Surface (iPad via Open Stage Control)
