@@ -51,31 +51,13 @@ When the user requests a new script or edits an existing one, Claude should exec
 **Step 1: Write the script**
 Create or edit the `.lua` file in the git repo.
 
-**Step 2: Commit and push to GitHub**
+**Step 2: Commit, push to GitHub, and add to Spreadsheet**
 ```bash
-git add SCRIPT_NAME.lua && git commit -m "Add/Update SCRIPT_NAME" && git push
-```
-
-**Step 3: Add to Google Spreadsheet (Development tab)**
-```bash
-curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "tab": "07. Development",
-    "script_name": "SCRIPT_NAME.lua",
-    "date_created": "YYYY-MM-DD",
-    "use": "Brief description of what the script does",
-    "file_path": "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua",
-    "file_type": "lua",
-    "notes": "",
-    "osc_page": "",
-    "button_id": "",
-    "button_name": ""
-  }'
+git add SCRIPT_NAME.lua && git commit -m "Add/Update SCRIPT_NAME" && git push && curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" -H "Content-Type: application/json" -d '{"tab": "07. Development", "script_name": "SCRIPT_NAME.lua", "date_created": "YYYY-MM-DD", "use": "Brief description of what the script does", "file_path": "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua", "file_type": "lua", "notes": "", "osc_page": "", "button_id": "", "button_name": ""}'
 ```
 **Note:** The curl response may return an HTML "Page Not Found" page - this is normal and the request still succeeds. Check the spreadsheet to verify.
 
-**Step 4: Deploy and test in REAPER**
+**Step 3: Deploy and test in REAPER**
 ```bash
 cp "/Users/jahammersmith/projects/my-lua-scripts/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/"
 /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua"
