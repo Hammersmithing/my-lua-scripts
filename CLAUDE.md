@@ -100,11 +100,10 @@ User tests in REAPER and reports back with ONE of these three outcomes:
 - Session ends for this script
 
 **Option C: Script is COMPLETE**
-1. Claude suggests which of the 47 category folders the script should live in permanently
-2. User confirms OR discusses alternative folder
-3. Once agreed, Claude executes ALL of these steps in sequence:
+Claude automatically executes ALL of these steps in sequence (no confirmation needed):
 
-   **Step C1: Move script to permanent folder**
+   **Step C1: Choose category and move script to permanent folder**
+   Claude picks the most appropriate category folder and moves the script there with the `ALDENHammersmith_` prefix.
    ```bash
    mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua"
    ```
@@ -146,7 +145,8 @@ User tests in REAPER and reports back with ONE of these three outcomes:
    git mv SCRIPT_NAME.lua ALDENHammersmith_SCRIPT_NAME.lua && git commit -m "Rename SCRIPT_NAME to final name with prefix" && git push
    ```
 
-4. Script is done - ready to design a new script
+   **Step C6: Confirm completion**
+   Claude reports which folder the script was moved to and confirms it's ready in the Action List.
 
 ### Moving to Permanent Folder
 When moving to a permanent folder, rename the script with the prefix `ALDENHammersmith_`:
