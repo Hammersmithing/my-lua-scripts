@@ -73,6 +73,7 @@ curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvx
     "button_name": ""
   }'
 ```
+**Note:** The curl response may return an HTML "Page Not Found" page - this is normal and the request still succeeds. Check the spreadsheet to verify.
 
 **Step 4: Deploy and test in REAPER**
 ```bash
@@ -101,12 +102,50 @@ User tests in REAPER and reports back with ONE of these three outcomes:
 **Option C: Script is COMPLETE**
 1. Claude suggests which of the 47 category folders the script should live in permanently
 2. User confirms OR discusses alternative folder
-3. Once agreed, Claude:
-   - Moves script from `07. Development` to the permanent folder (with ALDENHammersmith_ prefix)
-   - Deletes script from "07. Development" spreadsheet tab
-   - Adds script to REAPER Action List (runs automatically, copies name to clipboard)
-   - Adds script to permanent folder spreadsheet tab
-   - Renames script in git repo to match final name (ALDENHammersmith_ prefix)
+3. Once agreed, Claude executes ALL of these steps in sequence:
+
+   **Step C1: Move script to permanent folder**
+   ```bash
+   mv "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/SCRIPT_NAME.lua" "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua"
+   ```
+
+   **Step C2: Delete from Development spreadsheet tab**
+   ```bash
+   curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" \
+     -H "Content-Type: application/json" \
+     -d '{"action": "delete", "tab": "07. Development", "script_name": "SCRIPT_NAME.lua"}'
+   ```
+
+   **Step C3: Add to permanent folder spreadsheet tab**
+   ```bash
+   curl -L -X POST "https://script.google.com/macros/s/AKfycbyYRfKTTYlHSCaCW1pO2vvxRjR3FU6X699hXycJRGfDNGBGFNT7ypJDVzECuuis15q87w/exec" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "tab": "XX. Category",
+       "script_name": "ALDENHammersmith_SCRIPT_NAME.lua",
+       "date_created": "YYYY-MM-DD",
+       "use": "Brief description of what the script does",
+       "file_path": "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua",
+       "file_type": "lua",
+       "notes": "",
+       "osc_page": "",
+       "button_id": "",
+       "button_name": ""
+     }'
+   ```
+
+   **Step C4: Add to REAPER Action List**
+   ```bash
+   echo "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/XX. Category/ALDENHammersmith_SCRIPT_NAME.lua" > /tmp/reaper_script_to_add.txt
+   /Applications/REAPER.app/Contents/MacOS/REAPER -nonewinst "/Users/jahammersmith/Library/Application Support/REAPER/Scripts/Alden Hammersmith Custom Scripts/07. Development/_add-to-action-list.lua"
+   open -a REAPER
+   ```
+
+   **Step C5: Rename in git repo**
+   ```bash
+   git mv SCRIPT_NAME.lua ALDENHammersmith_SCRIPT_NAME.lua && git commit -m "Rename SCRIPT_NAME to final name with prefix" && git push
+   ```
+
 4. Script is done - ready to design a new script
 
 ### Moving to Permanent Folder
