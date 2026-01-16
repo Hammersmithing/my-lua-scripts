@@ -8,12 +8,14 @@ local bpm = reaper.TimeMap_GetDividedBpmAtTime(cur_pos)
 local beats_per_measure = 4
 
 -- Get time signature markers and determine the current time signature
+-- API: retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo
 local num_markers = reaper.CountTempoTimeSigMarkers(0)
+
 for i = 0, num_markers - 1 do
-    local retval, pos, _, num, den, _ = reaper.GetTempoTimeSigMarker(0, i)
-    if retval and pos <= cur_pos then
-        beats_per_measure = num -- Use the latest valid beats per measure
-    else
+    local retval, timepos, measurepos, beatpos, marker_bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker(0, i)
+    if retval and timepos <= cur_pos and timesig_num > 0 then
+        beats_per_measure = timesig_num
+    elseif timepos > cur_pos then
         break
     end
 end
