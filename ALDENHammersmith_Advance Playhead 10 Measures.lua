@@ -1,30 +1,16 @@
--- Get the current playhead position
+-- Move playhead forward 10 measures (works with tempo/time sig changes)
+
 local cur_pos = reaper.GetCursorPosition()
 
--- Get tempo (BPM) at the current position
-local bpm = reaper.TimeMap_GetDividedBpmAtTime(cur_pos)
+-- Get current position in measures/beats
+-- Returns: retval, measures, cml, fullbeats, cdenom
+local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats(0, cur_pos)
 
--- Default to 4 beats per measure (assuming 4/4 time)
-local beats_per_measure = 4
+-- Calculate target measure (10 measures forward)
+local target_measure = measures + 10
 
--- Get time signature markers and determine the current time signature
--- API: retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo
-local num_markers = reaper.CountTempoTimeSigMarkers(0)
+-- Convert target measure back to time position (start of that measure)
+local new_pos = reaper.TimeMap2_beatsToTime(0, 0, target_measure)
 
-for i = 0, num_markers - 1 do
-    local retval, timepos, measurepos, beatpos, marker_bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker(0, i)
-    if retval and timepos <= cur_pos and timesig_num > 0 then
-        beats_per_measure = timesig_num
-    elseif timepos > cur_pos then
-        break
-    end
-end
-
--- Calculate the length of 10 measures in seconds
-local sec_per_beat = 60 / bpm
-local sec_per_measure = sec_per_beat * beats_per_measure
-local time_to_move = sec_per_measure * 10
-
--- Move the playhead forward
-reaper.SetEditCurPos(cur_pos + time_to_move, true, false)
+reaper.SetEditCurPos(new_pos, true, false)
 
