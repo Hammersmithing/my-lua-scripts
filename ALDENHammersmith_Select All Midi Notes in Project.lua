@@ -47,8 +47,6 @@ for i = 0, itemCount - 1 do
   end
 end
 
-reaper.MIDI_RefreshEditors()
-
 reaper.PreventUIRefresh(-1)
 reaper.Undo_EndBlock("Open ALL project MIDI in editor and select all", -1)
 
