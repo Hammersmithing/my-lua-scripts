@@ -16,10 +16,6 @@ local CAP_AT_NEXT_NOTE_ON = true     -- prevent extending beyond next note-on of
 ----------------------------------------------------------------
 -- Helpers
 ----------------------------------------------------------------
-local function logln(s)
-  reaper.ShowConsoleMsg(tostring(s) .. "\n")
-end
-
 local function get_target_take()
   -- Prefer active MIDI editor take
   local editor = reaper.MIDIEditor_GetActive()
@@ -236,11 +232,4 @@ reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange()
 
 reaper.Undo_EndBlock("Apply sustain pedal to note lengths (CC64 -> note ends)", -1)
-
--- Summary in console
-logln(("Apply Sustain Pedal to Notes: extended %d notes; %s %d CC64 events."):format(
-  extended,
-  DELETE_CC64 and "deleted" or "kept",
-  deleted
-))
 
