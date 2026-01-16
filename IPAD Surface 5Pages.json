@@ -3757,8 +3757,8 @@
           },
           {
             "type": "button",
-            "top": "60%",
-            "left": "16.5%",
+            "top": "70%",
+            "left": "0.5%",
             "lock": false,
             "id": "p2_midi_length_eighth",
             "visible": true,
