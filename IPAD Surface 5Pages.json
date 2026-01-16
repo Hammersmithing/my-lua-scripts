@@ -2952,7 +2952,7 @@
             "html": "",
             "css": "",
             "colorTextOn": "auto",
-            "label": "Nudge -100ms",
+            "label": "Nudge Back 100ms",
             "vertical": false,
             "wrap": false,
             "on": 1,
