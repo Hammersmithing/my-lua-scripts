@@ -4335,7 +4335,7 @@
             "html": "",
             "css": "",
             "colorTextOn": "auto",
-            "label": "Select All Master Mix",
+            "label": "Render Region Matrix - Select all Regions Master Mix",
             "vertical": false,
             "wrap": false,
             "on": 1,
