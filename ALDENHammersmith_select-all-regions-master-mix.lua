@@ -4,6 +4,9 @@
 local function main()
   local proj = 0 -- current project
 
+  -- Get master track for "Master mix" row in Region Render Matrix
+  local master_track = reaper.GetMasterTrack(proj)
+
   -- Get all regions
   local _, num_markers, num_regions = reaper.CountProjectMarkers(proj)
 
@@ -20,10 +23,10 @@ local function main()
     local _, isrgn, _, _, _, markrgnindexnumber = reaper.EnumProjectMarkers(idx)
 
     if isrgn then
-      -- Add this region to Master mix (track 0 = master)
-      -- SetRegionRenderMatrix(proj, region_index, track)
-      -- track = 0 means master mix
-      reaper.SetRegionRenderMatrix(proj, markrgnindexnumber, 0, 1)
+      -- Add this region to Master mix
+      -- SetRegionRenderMatrix(proj, region_index, track, addorremove)
+      -- track = master_track for Master mix row
+      reaper.SetRegionRenderMatrix(proj, markrgnindexnumber, master_track, 1)
       regions_added = regions_added + 1
     end
 
